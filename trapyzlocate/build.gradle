@@ -1,0 +1,4 @@
+task assemble{}
+
+configurations.create("default")
+artifacts.add("default", file('trapyzlocate.aar'))
