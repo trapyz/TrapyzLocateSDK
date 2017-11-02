@@ -96,11 +96,19 @@ include ':app', ':trapyzlocate'
 
 ```
 
-###Start/Stop Service###
+###Start Service in your onCreate Block###
 
 ``` 
-            Intent intent = new Intent(Intent.ACTION_SYNC, null, this, com.trapyz.trapyzlocatesdk.TrapyzLocationService.class);
-            startService(intent);
+  	if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Check Permissions Now
+            ActivityCompat.requestPermissions(this,
+                    new String[] { Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE },
+                    0);
+        }
+
+        if (!isFineOrCoarseLocationPermissionGranted()) {
+            requestCoarseLocationPermission();
+        }
 
 ```
 
