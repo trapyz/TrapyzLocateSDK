@@ -13,6 +13,8 @@ Download and extract or git clone this repository in the root directory of your 
     compile 'com.amitshekhar.android:android-networking:1.0.0'
     compile 'com.github.pwittchen:reactivebeacons:0.5.1'
     compile 'io.reactivex:rxandroid:1.2.1'
+    compile project(':trapyzlocate')
+
 ```
 
 ### Settings.Gradle Configuration###
@@ -56,6 +58,43 @@ include ':app', ':trapyzlocate'
 
 ```
 
+###Implement the following methods in your MainActivity###
+* Implement the following methods in your MainActivity
+```
+
+    @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                                     @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        final boolean isCoarseLocation = requestCode == PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION;
+        final boolean permissionGranted = grantResults[0] == PERMISSION_GRANTED;
+
+        if (isCoarseLocation && permissionGranted) {
+            Intent intent = new Intent(Intent.ACTION_SYNC, null, this, com.trapyz.trapyzlocatesdk.TrapyzLocationService.class);
+            startService(intent);
+        }
+    }
+
+    private void requestCoarseLocationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[] { ACCESS_COARSE_LOCATION },
+                    PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION);
+        }
+    }
+
+    private boolean isFineOrCoarseLocationPermissionGranted() {
+        boolean isAndroidMOrHigher = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+        boolean isFineLocationPermissionGranted = isGranted(ACCESS_FINE_LOCATION);
+        boolean isCoarseLocationPermissionGranted = isGranted(ACCESS_COARSE_LOCATION);
+
+        return isAndroidMOrHigher && (isFineLocationPermissionGranted
+                || isCoarseLocationPermissionGranted);
+    }
+
+    private boolean isGranted(String permission) {
+        return ActivityCompat.checkSelfPermission(this, permission) == PERMISSION_GRANTED;
+    }
+
+```
 
 ###Start/Stop Service###
 
