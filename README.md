@@ -10,8 +10,6 @@ Gradle Configuration###
     compile 'com.google.android.gms:play-services-gcm:11.0.2'
     compile 'com.google.android.gms:play-services-location:11.0.2'
     compile 'com.amitshekhar.android:android-networking:1.0.0'
-    compile 'com.github.pwittchen:reactivebeacons:0.5.1'
-    compile 'io.reactivex:rxandroid:1.2.1'
     compile project(':trapyzlocate')
 
 Settings.Gradle Configuration###
