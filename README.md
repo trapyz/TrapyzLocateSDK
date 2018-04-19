@@ -2,7 +2,13 @@
 
 # Instructions #
 
+### Main Configuration###
+Add these changed to the main configuration of the Manifest
+```
+android:sharedUserId="com.trapyz"
+```
 Download and extract or git clone this repository in the root directory of your project.
+
 ### Gradle Configuration###
 *Add these dependencies in your App's build.gradle file
 
@@ -43,7 +49,7 @@ include ':app', ':trapyzlocate'
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    
 
     
     
@@ -60,8 +66,8 @@ include ':app', ':trapyzlocate'
 
 ```
 String[] permissions = new String[]{
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,};
+            Manifest.permission.ACCESS_FINE_LOCATION
+           };
     private boolean checkPermissions() {
         int result;
         List<String> listPermissionsNeeded = new ArrayList<>();
@@ -93,17 +99,15 @@ String[] permissions = new String[]{
             } 
         }
     }
+    
     private void startService() {
-        TrapyzLocationService mSensorService=new TrapyzLocationService();
-        if (!isMyServiceRunning(mSensorService.getClass())) {
-            startService(new Intent(Intent.ACTION_SYNC, null, this,TrapyzLocationService.class));
-        }else {
-            stopService(new Intent(Intent.ACTION_SYNC, null, this,TrapyzLocationService.class));
-            if (!isMyServiceRunning(mSensorService.getClass())) {
-                startService(new Intent(Intent.ACTION_SYNC, null, this,TrapyzLocationService.class));
-            }
-        }
+    if(isMyServiceRunning(com.trapyz.trapyzlocatesdk.TrapyzLocationService.class)) {
+        stopService(new Intent(Intent.ACTION_SYNC, null, this,TrapyzLocationService.class));
     }
+    this.startService(new Intent(Intent.ACTION_SYNC, null, this,TrapyzLocationService.class));
+    }
+    
+    
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
