@@ -3,7 +3,7 @@
 # Instructions #
 
 ### Main Configuration###
-Add these changed to the main configuration of the Manifest
+Add these changes to the main configuration of the Manifest
 ```
 android:sharedUserId="com.trapyz"
 ```
