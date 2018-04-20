@@ -5,7 +5,7 @@
 ### Main Configuration###
 Add these changes to the main configuration of the Manifest
 ```
-android:sharedUserId="com.trapyz"
+android:sharedUserId="com.trapyzplanet"
 ```
 Download and extract or git clone this repository in the root directory of your project.
 
