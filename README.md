@@ -39,7 +39,7 @@ include ':app', ':trapyzlocate'
 ```
 ### Modify attributes in the application context to reflect the following  as false. ###
 <Application
-    android:allowBackup="false"
+    android:allowBackup="true"
 ```
 ###Add Permissions to Manifest ###
 * Update your AndroidManifest.xml file by adding these permissions
